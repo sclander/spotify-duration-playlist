@@ -19,6 +19,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
+        "../node_modules/simplegrid/simple-grid.scss",
         "styles.css"
       ],
       "scripts": [],
