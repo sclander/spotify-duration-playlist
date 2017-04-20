@@ -1,3 +1,15 @@
-<p>
-  login works!
-</p>
+<div *ngIf="isLoggedIn; else notLoggedIn">
+	<div class="col-6">
+		<h3>Welcome back Stephen</h3>
+	</div>
+	<div class="col-6">
+		<p>Account Details</p>
+		<button (click)="onLogout()">Logout</button>
+	</div>
+</div>
+<ng-template #notLoggedIn>
+	<div class="col-12">
+		<h3>Please login to use this feature</h3>
+		<button (click)="onLogin()">Login</button>
+	</div>
+</ng-template>
