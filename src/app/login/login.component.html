@@ -1,15 +1,15 @@
 <div *ngIf="isLoggedIn; else notLoggedIn">
 	<div class="col-6">
-		<h3>Welcome back Stephen</h3>
+		<img [src]="userData.imageUrl"/>
+		<h3>{{userData.name}}</h3>
 	</div>
 	<div class="col-6">
-		<p>Account Details</p>
-		<button (click)="onLogout()">Logout</button>
+		<div class="btn" (click)="onLogout()">Logout</div>
 	</div>
 </div>
 <ng-template #notLoggedIn>
 	<div class="col-12">
 		<h3>Please login to use this feature</h3>
-		<button (click)="onLogin()">Login</button>
+		<div class="btn login" (click)="onLogin()">Login</div>
 	</div>
 </ng-template>
