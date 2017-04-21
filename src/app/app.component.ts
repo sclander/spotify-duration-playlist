@@ -7,4 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Spotify Duration Playlist';
+  logoPath = 'assets/clock.png';
 }

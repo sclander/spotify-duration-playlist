@@ -12,7 +12,7 @@ import { ContainerComponent } from './container/container.component';
 import { SpotifyService } from './spotify.service';
 
 const routes = [{
-  path: '**', 
+  path: '', 
   component: ContainerComponent
 }];
 
