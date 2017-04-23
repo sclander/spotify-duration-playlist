@@ -1,3 +1,6 @@
-<ul>
-	<li *ngFor="let song of songs">{{song.name}}</li>
-</ul>
+<div *ngFor="let match of matches">
+	<ul>
+		<li *ngFor="let song of match">{{song}}</li>
+	</ul>
+	<hr/>
+</div>

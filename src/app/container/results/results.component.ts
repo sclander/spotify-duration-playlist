@@ -15,6 +15,7 @@ export class ResultsComponent implements OnInit, OnChanges {
 	@Input() userData: UserData;
 	@Input() parameters: GeneratorParams;
 	songs: Song[] = [];
+	matches: string[][] = []; 
 
   constructor(private spotify: SpotifyService) { }
 
@@ -23,6 +24,7 @@ export class ResultsComponent implements OnInit, OnChanges {
   ngOnChanges(changes) {
 		if( changes.parameters && changes.parameters.currentValue.playlistId != '') {
 			this.songs = [];
+			this.matches = [];
   		this.getPlaylistTracks();
   	}
   }
@@ -35,7 +37,93 @@ export class ResultsComponent implements OnInit, OnChanges {
   			for(let item of body.items) {
   				this.songs.push(new Song(item.track.name, item.track.duration_ms));
   			}
+  			this.generatePlaylists();
   		}
   	)
   }
+
+  generatePlaylists() {
+  	// determine absolute max and min
+  	let maxDuration = this.parameters.duration + this.parameters.tolerance;
+		let minDuration = this.parameters.duration - this.parameters.tolerance;
+
+  	// sort by duration
+  	this.songs = this.songs.sort((a, b) => {
+  		if (a.duration_ms < b.duration_ms)
+	    	return -1;
+		  if (a.duration_ms > b.duration_ms)
+		    return 1;
+		  return 0;
+  	});
+
+  	// Determine initial max length
+		let maxLength = 0;
+		let maxTestVal = 0;
+		let maxCount = 0
+		while (maxTestVal < maxDuration) {
+			maxTestVal += this.songs[maxCount].duration_ms;
+			
+			if (maxTestVal < maxDuration) {
+				maxCount++;
+			} else {
+				maxLength = maxCount;
+			}
+		}
+
+		// Determine initial min length
+		let minLength = 0;
+		let minTestVal = 0;
+		let minCount = 0;
+		while (minTestVal < maxDuration) {
+			minTestVal += this.songs[this.songs.length - minCount - 1].duration_ms;
+			minCount++
+
+			if (minTestVal > maxDuration)
+				minLength = minCount;		
+		}
+
+		for(let i = minLength; i <= maxLength; i++) {
+			this.iterateSubsets(this.songs, i, minDuration, maxDuration);
+		}
+  }
+
+  iterateSubsets(set, subsetLength, min, max) {		
+		let s = [];
+		
+		// Generate the first set of indicies
+		for (let i = 0; (s[i] = i) < subsetLength - 1; i++);
+		this.checkDuration(set, s, min, max);
+
+		// Loop through the rest of the indicies
+		for(;;) {
+			for (var i = subsetLength - 1; i >= 0 && s[i] == set.length - subsetLength + i; i--);
+			if (i < 0) {
+	      break;
+	    } else {
+	      s[i]++;                    						// increment this item
+	      for (++i; i < subsetLength; i++) {    // fill up remaining items
+	        s[i] = s[i - 1] + 1; 
+	      }
+	      this.checkDuration(set, s, min, max); 
+	    }
+		}
+	}
+
+	checkDuration(set, indices, min, max) {
+		let subsetDuration = 0;
+		for(var i = 0; i < indices.length; i++) {
+			subsetDuration += set[indices[i]].duration_ms;
+		}
+		if (subsetDuration >= min && subsetDuration <= max) {
+			this.printMatch(indices);
+		}
+	}
+
+	printMatch(indices) {
+		let match = [];
+		for(var i = 0; i < indices.length; i++) {
+			match.push(this.songs[indices[i]].name);
+		}
+		this.matches.push(match);
+	}
 }
