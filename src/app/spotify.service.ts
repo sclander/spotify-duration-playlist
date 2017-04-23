@@ -5,11 +5,25 @@ import { Http, Headers} from '@angular/http';
 export class SpotifyService {
 	constructor(private http: Http){}
 
-	getUser(token) {
-		console.log(token);
+	authHeader(token): Headers {
 		const headers = new Headers({
 			'Authorization': `Bearer ${token}`
 		});
+		return headers;
+	}
+
+	getUser(token) {
+		let headers = this.authHeader(token);
 		return this.http.get('https://api.spotify.com/v1/me',{headers: headers});
+	}
+
+	getPlaylists(token, userId) {
+		let headers = this.authHeader(token);
+		return this.http.get(`https://api.spotify.com/v1/users/${userId}/playlists?limit=50`, {headers: headers});
+	}
+
+	getPlaylistTracks(token, userId, playlistId) {
+		let headers = this.authHeader(token);
+		return this.http.get(`https://api.spotify.com/v1/users/${userId}/playlists/${playlistId}/tracks`, {headers: headers});
 	}
 }

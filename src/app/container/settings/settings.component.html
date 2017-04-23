@@ -1,0 +1,11 @@
+<form (ngSubmit)="onGenerate(form)" #form="ngForm">
+	<label>Playlist</label>
+	<select name="playlist" ngModel>
+		<option *ngFor="let playlist of playlists" value="{{playlist.id}}">{{playlist.name}}</option>
+	</select>
+	<label>Target Duration (ms)</label>
+	<input type="number" name="duration" ngModel>
+	<label>Tolerance (ms)</label>
+	<input type="number" name="tolerance" ngModel>
+	<button class="btn green">Generate!</button>
+</form>

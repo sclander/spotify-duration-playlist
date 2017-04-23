@@ -1,0 +1,7 @@
+label, input, select {
+	display: block;
+}
+
+.btn {
+	background-color: #1ED760;
+}
