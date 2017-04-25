@@ -9,4 +9,3 @@ export class UserData {
 		this.imageUrl = imageUrl;
 	}
 }
-

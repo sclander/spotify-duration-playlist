@@ -15,9 +15,11 @@ export class ResultsComponent implements OnInit, OnChanges {
 	@Input() userData: UserData;
 	@Input() parameters: GeneratorParams;
 	songs: Song[] = [];
-	matches: string[][] = []; 
+	matches: string[][] = [];
+  isLoading: boolean = false;
+  percentLoaded: number = 0; 
 
-  constructor(private spotify: SpotifyService) { }
+  constructor(private spotify: SpotifyService, ) {}
 
   ngOnInit() {}
 
@@ -30,6 +32,7 @@ export class ResultsComponent implements OnInit, OnChanges {
   }
 
   getPlaylistTracks() {
+    this.isLoading = true;
   	this.spotify.getPlaylistTracks(this.token, this.userData.id, this.parameters.playlistId)
   	.map( response => response.json() )
   	.subscribe(
@@ -38,6 +41,7 @@ export class ResultsComponent implements OnInit, OnChanges {
   				this.songs.push(new Song(item.track.name, item.track.duration_ms));
   			}
   			this.generatePlaylists();
+        this.isLoading = false;
   		}
   	)
   }
@@ -82,8 +86,14 @@ export class ResultsComponent implements OnInit, OnChanges {
 				minLength = minCount;		
 		}
 
+    let totalIterations = this.numIterations(minLength, maxLength, this.songs.length);
+    let completedIterations = 0;
+
 		for(let i = minLength; i <= maxLength; i++) {
 			this.iterateSubsets(this.songs, i, minDuration, maxDuration);
+      completedIterations += this.nChooseR(this.songs.length, i);
+      this.percentLoaded = (completedIterations / totalIterations) * 100;
+      console.log(this.percentLoaded);
 		}
   }
 
@@ -126,4 +136,26 @@ export class ResultsComponent implements OnInit, OnChanges {
 		}
 		this.matches.push(match);
 	}
+
+  numIterations(min, max, total): number {
+    let numIterations = 0;
+    let counter = min;
+
+    for (counter; counter <= max; counter++) {
+      numIterations += this.nChooseR(total, counter);
+    }
+
+    return numIterations;
+  }
+
+  nChooseR(n: number, r: number): number {
+    return this.factorial(n) / (this.factorial(r) * this.factorial(n - r));
+  }
+
+  factorial(n: number): number {
+    if (n === 0)
+      { return 1; }
+    else
+      { return n * this.factorial( n - 1 ); }
+  }
 }
