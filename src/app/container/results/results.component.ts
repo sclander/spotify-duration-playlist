@@ -19,7 +19,7 @@ export class ResultsComponent implements OnInit, OnChanges {
   isLoading: boolean = false;
   percentLoaded: number = 0; 
 
-  constructor(private spotify: SpotifyService, ) {}
+  constructor(private spotify: SpotifyService) {}
 
   ngOnInit() {}
 
