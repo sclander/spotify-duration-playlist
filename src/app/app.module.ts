@@ -10,6 +10,8 @@ import { SettingsComponent } from './container/settings/settings.component';
 import { ResultsComponent } from './container/results/results.component';
 import { ContainerComponent } from './container/container.component';
 import { SpotifyService } from './spotify.service';
+import { GeneratorService } from './generator.service';
+import { ProgressBarComponent } from './container/results/progress-bar/progress-bar.component';
 
 const routes = [{
   path: '', 
@@ -22,7 +24,8 @@ const routes = [{
     LoginComponent,
     SettingsComponent,
     ResultsComponent,
-    ContainerComponent
+    ContainerComponent,
+    ProgressBarComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,7 @@ const routes = [{
     HttpModule, 
     RouterModule.forRoot(routes)
   ],
-  providers: [SpotifyService],
+  providers: [SpotifyService, GeneratorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

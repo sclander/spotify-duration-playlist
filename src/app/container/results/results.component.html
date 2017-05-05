@@ -1,7 +1,5 @@
-<div *ngIf="isLoading">
-  <h3>Loading {{percentLoaded}}</h3>
-</div>
-<div *ngFor="let match of matches">\
+<app-progress-bar [percentLoaded]="percentLoaded$" [ngClass]="{'hidden': isLoading}"></app-progress-bar>
+<div *ngFor="let match of matches">
 	<ul>
 		<li *ngFor="let song of match">{{song}}</li>
 	</ul>

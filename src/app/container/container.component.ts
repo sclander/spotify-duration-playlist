@@ -49,9 +49,7 @@ export class ContainerComponent implements OnInit {
 
   onParameters(parameters: GeneratorParams) {
     this.generatorParams = parameters;
-    if (this.generatorParams.playlistId) {
+    if (this.generatorParams.playlistId)
       this.showResults = true;
-    }
-    console.log(this.generatorParams);
   }
 }
