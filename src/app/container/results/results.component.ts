@@ -15,11 +15,11 @@ export class ResultsComponent implements OnInit, OnChanges {
 	@Input() userData: UserData;
 	@Input() parameters: GeneratorParams;
 	songs: Song[] = [];
-	matches: string[][] = [];
+	matches: Song[][] = [];
   isLoading: boolean = false;
   percentLoaded: number = 0; 
 
-  constructor(private spotify: SpotifyService, ) {}
+  constructor(private spotify: SpotifyService) {}
 
   ngOnInit() {}
 
@@ -38,7 +38,8 @@ export class ResultsComponent implements OnInit, OnChanges {
   	.subscribe(
   		body => {
   			for(let item of body.items) {
-  				this.songs.push(new Song(item.track.name, item.track.duration_ms));
+					console.log(item);
+  				this.songs.push(new Song(item.track.name, item.track.duration_ms, item.track.uri));
   			}
   			this.generatePlaylists();
         this.isLoading = false;
@@ -132,7 +133,7 @@ export class ResultsComponent implements OnInit, OnChanges {
 	printMatch(indices) {
 		let match = [];
 		for(var i = 0; i < indices.length; i++) {
-			match.push(this.songs[indices[i]].name);
+			match.push(this.songs[indices[i]]);
 		}
 		this.matches.push(match);
 	}
@@ -158,4 +159,25 @@ export class ResultsComponent implements OnInit, OnChanges {
     else
       { return n * this.factorial( n - 1 ); }
   }
+
+	newPlaylist(songs: Song[]) {
+		const name = prompt('Whassa name');
+		this.spotify.newPlaylist(this.token, this.userData.id, name).map( response => response.json() )
+  	.subscribe(
+  		body => {
+				this.addTracksToPlaylist(body['id'], songs);
+  		}
+  	)
+	}
+
+	addTracksToPlaylist(playlistId, songs: Song[]) {
+		let uris = [];
+		for (let song of songs) {
+			uris.push(song.uri);
+		}
+		console.log('URI string', uris);
+		this.spotify.addTracksToPlaylist(this.token, this.userData.id, playlistId, uris).subscribe(
+			response => console.log(response) 
+		)
+	}
 }
