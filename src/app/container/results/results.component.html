@@ -3,7 +3,8 @@
 </div>
 <div *ngFor="let match of matches">\
 	<ul>
-		<li *ngFor="let song of match">{{song}}</li>
+		<li *ngFor="let song of match">{{song.name}}</li>
 	</ul>
+	<button (click)="newPlaylist(match)">Make a playlist</button>
 	<hr/>
 </div>

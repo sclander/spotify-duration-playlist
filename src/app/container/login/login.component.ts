@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
   	let currentUrl = encodeURI(window.location.href);
-  	let authUrl = `https://accounts.spotify.com/authorize?client_id=3aca641b6b624d53bc175222657be0e4&redirect_uri=${currentUrl}&response_type=token`
+  	let authUrl = `https://accounts.spotify.com/authorize?client_id=3aca641b6b624d53bc175222657be0e4&redirect_uri=${currentUrl}&response_type=token&scope=playlist-modify-public`
 
   	window.location.href = authUrl;
   }
