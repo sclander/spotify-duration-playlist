@@ -38,7 +38,10 @@ export class SettingsComponent implements OnInit, OnChanges{
   }
 
   onGenerate(form) {
-    let value = form.value;
+		let value = form.value;
+		const duration_ms = ((value.duration_min * 60) + value.duration_sec) * 1000;
+		console.log('WOWOWOWOW', duration_ms)
+
   	this.parameters.emit(new GeneratorParams(value.playlist, value.duration, value.tolerance));
   }
 }
