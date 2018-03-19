@@ -1,10 +1,12 @@
-<div *ngIf="isLoading">
+<!-- <div *ngIf="isLoading">
   <h3>Loading {{percentLoaded}}</h3>
-</div>
-<div *ngFor="let match of matches">\
-	<ul>
-		<li *ngFor="let song of match">{{song.name}}</li>
-	</ul>
-	<button (click)="newPlaylist(match)">Make a playlist</button>
-	<hr/>
+</div> -->
+<div class="matches-container">
+	<div *ngFor="let match of matches">
+		<ul>
+			<li *ngFor="let song of match">{{song.name}}</li>
+		</ul>
+		<button (click)="newPlaylist(match)">Make a playlist</button>
+		<hr>
+	</div>
 </div>

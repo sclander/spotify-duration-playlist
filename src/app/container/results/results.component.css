@@ -1,0 +1,4 @@
+.matches-container {
+    max-height: 280px;
+    overflow: auto;
+}

@@ -161,7 +161,7 @@ export class ResultsComponent implements OnInit, OnChanges {
   }
 
 	newPlaylist(songs: Song[]) {
-		const name = prompt('Whassa name');
+		const name = prompt('What would you like to name this playlist?');
 		this.spotify.newPlaylist(this.token, this.userData.id, name).map( response => response.json() )
   	.subscribe(
   		body => {
