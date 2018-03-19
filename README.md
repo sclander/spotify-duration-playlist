@@ -4,6 +4,8 @@
 
 This application connects to the Spotify API to allow users to create a playlist of songs to that will add up to a desired duration. These can be used for timed workouts, study sessions, cooking, or anything else you can think of that could use a timer!
 
+[CLICK HERE TO RUN THIS APPLICATION LIVE ON GITHUB PAGES](https://sclander.github.io/spotify-duration-playlist/)
+
 ## Usage
 
 After following the on-page dialog to login to your Spotify account, you will see a few form inputs. You can use these to specify the parameters for the playlists you want to generate.
