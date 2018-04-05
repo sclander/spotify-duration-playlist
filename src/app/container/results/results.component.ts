@@ -17,7 +17,8 @@ export class ResultsComponent implements OnInit, OnChanges {
 	songs: Song[] = [];
 	matches: Song[][] = [];
   isLoading: boolean = false;
-  percentLoaded: number = 0; 
+	percentLoaded: number = 0; 
+	logoPath = '../../assets/clock.png';
 
   constructor(private spotify: SpotifyService) {}
 

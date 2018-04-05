@@ -1,6 +1,10 @@
-<!-- <div *ngIf="isLoading">
-  <h3>Loading {{percentLoaded}}</h3>
-</div> -->
+ <div *ngIf="isLoading">
+    <div id="ring">
+    <div id="logo">
+      <img class="green" [src]="logoPath"/>
+    </div>
+  </div>
+</div> 
 <div class="matches-container">
 	<div *ngFor="let match of matches">
 		<ul>
