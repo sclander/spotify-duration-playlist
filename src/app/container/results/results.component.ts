@@ -17,8 +17,8 @@ export class ResultsComponent implements OnInit, OnChanges {
 	songs: Song[] = [];
 	matches: Song[][] = [];
   isLoading: boolean = false;
-	percentLoaded: number = 0; 
-	logoPath = '../../assets/clock.png';
+	percentLoaded: number = 0;
+	logoPath = 'assets/clock.png';
 
   constructor(private spotify: SpotifyService) {}
 
@@ -68,7 +68,7 @@ export class ResultsComponent implements OnInit, OnChanges {
 		let maxCount = 0
 		while (maxTestVal < maxDuration) {
 			maxTestVal += this.songs[maxCount].duration_ms;
-			
+
 			if (maxTestVal < maxDuration) {
 				maxCount++;
 			} else {
@@ -85,7 +85,7 @@ export class ResultsComponent implements OnInit, OnChanges {
 			minCount++
 
 			if (minTestVal > maxDuration)
-				minLength = minCount;		
+				minLength = minCount;
 		}
 
     let totalIterations = this.numIterations(minLength, maxLength, this.songs.length);
@@ -99,9 +99,9 @@ export class ResultsComponent implements OnInit, OnChanges {
 		}
   }
 
-  iterateSubsets(set, subsetLength, min, max) {		
+  iterateSubsets(set, subsetLength, min, max) {
 		let s = [];
-		
+
 		// Generate the first set of indicies
 		for (let i = 0; (s[i] = i) < subsetLength - 1; i++);
 		this.checkDuration(set, s, min, max);
@@ -114,9 +114,9 @@ export class ResultsComponent implements OnInit, OnChanges {
 	    } else {
 	      s[i]++;                    						// increment this item
 	      for (++i; i < subsetLength; i++) {    // fill up remaining items
-	        s[i] = s[i - 1] + 1; 
+	        s[i] = s[i - 1] + 1;
 	      }
-	      this.checkDuration(set, s, min, max); 
+	      this.checkDuration(set, s, min, max);
 	    }
 		}
 	}
@@ -178,7 +178,7 @@ export class ResultsComponent implements OnInit, OnChanges {
 		}
 		console.log('URI string', uris);
 		this.spotify.addTracksToPlaylist(this.token, this.userData.id, playlistId, uris).subscribe(
-			response => console.log(response) 
+			response => console.log(response)
 		)
 	}
 }

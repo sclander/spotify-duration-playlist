@@ -4,13 +4,13 @@
       <img class="green" [src]="logoPath"/>
     </div>
   </div>
-</div> 
+</div>
 <div class="matches-container">
 	<div *ngFor="let match of matches">
 		<ul>
 			<li *ngFor="let song of match">{{song.name}}</li>
 		</ul>
-		<button (click)="newPlaylist(match)">Make a playlist</button>
+		<button class="btn" (click)="newPlaylist(match)">Make a playlist</button>
 		<hr>
 	</div>
 </div>
