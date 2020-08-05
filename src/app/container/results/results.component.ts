@@ -91,6 +91,7 @@ export class ResultsComponent implements OnInit, OnChanges {
     let totalIterations = this.numIterations(minLength, maxLength, this.songs.length);
     let completedIterations = 0;
 
+		// Loop through all subset lengths
 		for(let i = minLength; i <= maxLength; i++) {
 			this.iterateSubsets(this.songs, i, minDuration, maxDuration);
       completedIterations += this.nChooseR(this.songs.length, i);
@@ -99,6 +100,7 @@ export class ResultsComponent implements OnInit, OnChanges {
 		}
   }
 
+	// Iterate through all subsets of length <subsetLength>
   iterateSubsets(set, subsetLength, min, max) {
 		let s = [];
 
@@ -121,6 +123,7 @@ export class ResultsComponent implements OnInit, OnChanges {
 		}
 	}
 
+	// Check if subset is within duration parameters
 	checkDuration(set, indices, min, max) {
 		let subsetDuration = 0;
 		for(var i = 0; i < indices.length; i++) {
@@ -131,6 +134,7 @@ export class ResultsComponent implements OnInit, OnChanges {
 		}
 	}
 
+	// Add match to results array
 	printMatch(indices) {
 		let match = [];
 		for(var i = 0; i < indices.length; i++) {
