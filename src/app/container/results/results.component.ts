@@ -39,7 +39,6 @@ export class ResultsComponent implements OnInit, OnChanges {
   	.subscribe(
   		body => {
   			for(let item of body.items) {
-					console.log(item);
   				this.songs.push(new Song(item.track.name, item.track.duration_ms, item.track.uri));
   			}
   			this.generatePlaylists();
@@ -96,7 +95,6 @@ export class ResultsComponent implements OnInit, OnChanges {
 			this.iterateSubsets(this.songs, i, minDuration, maxDuration);
       completedIterations += this.nChooseR(this.songs.length, i);
       this.percentLoaded = (completedIterations / totalIterations) * 100;
-      console.log(this.percentLoaded);
 		}
   }
 
@@ -180,7 +178,6 @@ export class ResultsComponent implements OnInit, OnChanges {
 		for (let song of songs) {
 			uris.push(song.uri);
 		}
-		console.log('URI string', uris);
 		this.spotify.addTracksToPlaylist(this.token, this.userData.id, playlistId, uris).subscribe(
 			response => console.log(response)
 		)

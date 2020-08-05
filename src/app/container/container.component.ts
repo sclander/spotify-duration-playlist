@@ -55,6 +55,5 @@ export class ContainerComponent implements OnInit {
     if (this.generatorParams.playlistId) {
       this.showResults = true;
     }
-    console.log(this.generatorParams);
   }
 }
