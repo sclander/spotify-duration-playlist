@@ -43,7 +43,10 @@ export class ContainerComponent implements OnInit {
 
   getUser() {
   	this.spotify.getUser(this.token).map( response => response.json() ).subscribe(
-  		body => this.userData = new UserData(body.display_name, body.id, body.images[0].url)
+  		body =>  {
+        const imgUrl = body.images[0] ? body.images[0].url : 'https://memegenerator.net/img/images/300x300/14756717/bilbo-baggins.jpg';
+        this.userData = new UserData(body.display_name, body.id, imgUrl)
+      }
   	);
   }
 
